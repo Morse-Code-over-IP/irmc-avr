@@ -1,6 +1,23 @@
 irmc-avr
 ========
 
+# Build Firmware
+Under OSX:
+port install avr-binutils avr-libc avr-gcc avrdude
+make burn
+
+
+# Hardware
+I use an [duemilanove](http://arduino.cc/en/pmwiki.php?n=Main/arduinoBoardDuemilanove) with a 
+[W5100 Ethernet Shield](http://arduino.cc/en/pmwiki.php?n=Main/ArduinoEthernetShield)
+
+The wiring is as follows:
+* Sounder: PORTD
+* (TXLOOP PINC)
+* Use PD6 as speaker output
+* key is connected at PC5(ADC7)  (--> 5V!)
+
+=== Original Post ===
 Copied on 20150102 from http://fernski.blogspot.de/2013/05/sending-morsecode-via-atmega.html
 > A few weeks ago I wrote an openBSD client to connect to CWCOM servers and called it irmc.  
 > 

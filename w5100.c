@@ -56,10 +56,10 @@ void
 w5100_init()
 {
 
-	static unsigned char subnet_mask[] = {255,255,255,0};
-	static unsigned char mac_address[] = {0xde, 0xad, 0xbe, 0xef, 0xed, 0x00};
-	static unsigned char ip_address[] = {192,168,1,12};
-	static unsigned char gateway_address[] = {192,168,1,254};
+	static unsigned char subnet_mask[] = {255,255,255,0}; // FIXME: this is magic number
+	static unsigned char mac_address[] = {0xde, 0xad, 0xbe, 0xef, 0xed, 0x00}; // FIXME: this is magic number
+	static unsigned char ip_address[] = {192,168,1,12}; // FIXME: this is magic number
+	static unsigned char gateway_address[] = {192,168,1,1}; // FIXME: this is magic number
 
 	w5100_write(MR, MR_RST); /* reset w5100 data */
 
