@@ -3,17 +3,6 @@ irmc-avr
 IRMC stands for Internet Relay Morse Code. 
 This is an implementation of a [MOIP](https://github.com/8cH9azbsFifZ/moip) client.
 
-
-It implements the [CWCom protocol](http://kob.sdf.org/morsekob/docs/cwcom.pdf) as adopted by [MorseKOB](http://kob.sdf.org/morsekob/docs/history.pdf). You can try out the software in a [browser](http://kob.sdf.org/morsekob/morsekob30/index.htm) using Java.
-
-
-## Why morse code over IP?
-Why not? A number of different approaches for CW over IP exist. An early implementation has been the CWCom protocol, 
-which has been the basis for Morse KOB, a ready-to-use software. Both chat programs have been written for CW exclusively and are compatible. An alternative implementation in C exists as well as a port to the ATMEL AVR Microcontroller. 
-
-Besides a variety of other approaches exist, for example an IRC plugin ([CWirc](http://myspace.voo.be/pcoupard/cwirc/)), a [JavaScript implementation](http://morsecode.me), a [bandwidth-eating UDP implementation](http://hans.liss.pp.se/node/343), a [chat for iOS](http://pignology.net/cwwithme.html) or a modulated CW over IP using Mumble ([iCW](https://sites.google.com/site/icwoip/)).
-
-
 # Build Firmware
 Under OSX:
 port install avr-binutils avr-libc avr-gcc avrdude
@@ -49,13 +38,6 @@ Copied on 20150102 from http://fernski.blogspot.de/2013/05/sending-morsecode-via
 > 
 > The final version was placed into an enclosure. The green LED blinks to indicate that it is connected to the cwcom servers.
 > 
-
-## Resources
-* CWCom, John Samin (VK1EME): http://www.mrx.com.au/d_cwcom.htm
-* Morse KOB, Les Kerr: https://sites.google.com/site/morsekob/ and http://kob.sdf.org/morsekob/
-* Relay server for CW communicator and morse KOB: http://morsecode.dc3.com:7890 
-* Sources for the Relay Server: http://sourceforge.net/projects/morse-rss-news/
-* MorseKOB for AT Mega, Fernan Bolando (VE4FEB): http://fernski.blogspot.de/2013/05/sending-morsecode-via-atmega.html
 
 Code Quality
 ============
