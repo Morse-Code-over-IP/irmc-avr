@@ -1,7 +1,11 @@
 irmc-avr
 ========
-# What is IRMC?
-IRMC stands for Internet Relay Morse Code. It implements the [CWCom protocol](http://kob.sdf.org/morsekob/docs/cwcom.pdf) as adopted by [MorseKOB](http://kob.sdf.org/morsekob/docs/history.pdf). You can try out the software in a [browser](http://kob.sdf.org/morsekob/morsekob30/index.htm) using Java.
+IRMC stands for Internet Relay Morse Code. 
+This is an implementation of a [MOIP](https://github.com/8cH9azbsFifZ/moip) client.
+
+
+It implements the [CWCom protocol](http://kob.sdf.org/morsekob/docs/cwcom.pdf) as adopted by [MorseKOB](http://kob.sdf.org/morsekob/docs/history.pdf). You can try out the software in a [browser](http://kob.sdf.org/morsekob/morsekob30/index.htm) using Java.
+
 
 ## Why morse code over IP?
 Why not? A number of different approaches for CW over IP exist. An early implementation has been the CWCom protocol, 
