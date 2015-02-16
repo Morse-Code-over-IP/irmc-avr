@@ -4,6 +4,7 @@ OBJ = ${SRC:.c=.out}
 CC = avr-gcc
 CFLAGS = -Wall -I/opt/local/avr/include/avr/ -O -Wl,-Map,irmc.map -DF_CPU=16000000UL -mmcu=atmega328
 PORT = /dev/tty.usbserial-A700dZIr  
+#PORT = /dev/tty.usbserial-A400Y62O
 LD = avr-objcopy
 
 all: options irmc.hex 

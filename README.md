@@ -8,12 +8,22 @@ Under OSX:
 port install avr-binutils avr-libc avr-gcc avrdude
 make burn
 
+Testing:
+Observe the "DG6FL/AVR" on http://mtc-kob.dyndns.org
+"
 
 # Hardware
 I use an [duemilanove](http://arduino.cc/en/pmwiki.php?n=Main/arduinoBoardDuemilanove) with a 
 [W5100 Ethernet Shield](http://arduino.cc/en/pmwiki.php?n=Main/ArduinoEthernetShield)
 
-The wiring is as follows:
+The wiring is as follows: (see [pin mapping](http://arduino.cc/en/Hacking/PinMapping168))
+| Pin | Function |
+| :-- | :------- |
+| PORTD | Sounder |
+| PINC | TXLOOP |
+| PID6 | Speaker |
+| PC5 (ADC7) analog Input 5 | Key (5V!) |
+
 * Sounder: PORTD
 * (TXLOOP PINC)
 * Use PD6 as speaker output
