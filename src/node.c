@@ -4,7 +4,7 @@
 
 extern unsigned char _adc_reg;
 
-
+// FIXME
 void
 mtc(struct node *c)
 {
@@ -19,6 +19,8 @@ mtc(struct node *c)
 // 192.94.73.9
 }
 
+
+// FIXME
 void
 setnode(struct node *c)
 {

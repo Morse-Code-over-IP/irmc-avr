@@ -7,6 +7,7 @@
 #include "w5100.h"
 #include "irmc.h"
 
+
 unsigned long tx_sequence = 0, rx_sequence;
 unsigned long _timer_reg;
 unsigned char _adc_reg = 0;
@@ -66,7 +67,11 @@ sounder(struct dp *c)
 	unsigned int cycles;
 
 	for(i = 0; i < c->n; i++){
+        // Beep
 		if(c->code[i] > 0){
+#ifdef BLINK
+            PORTD |= (1 << PD4); // blink
+#endif
 			cycles = c->code[i] * 1000 / CYCLE;
 			while(cycles > 0){
 				PORTD |= (1 << PD6);
@@ -76,8 +81,12 @@ sounder(struct dp *c)
 				cycles--;
 			}
 		}
+        // No beep
 		if(c->code[i] < 0){
 			if((c->code[i] * -1) > 1000) c->code[i] = -1000;
+#ifdef BLINK
+            PORTD &= ~(1 << PD4); // blink
+#endif
 			PORTD &= ~(1 << PD6);
 			wait(-1 * c->code[i]);
 		}
@@ -149,6 +158,9 @@ main()
 	for(n = 0; n < 51; n++) data.code[n] = 0;
 
 	DDRD |= (1 << PD7); /* Status LED ON=connected to irmc */
+#ifdef BLINK
+    DDRD |= (1 << PD4);
+#endif
 	timer_init();
 	usart_init();
 	spi_init();

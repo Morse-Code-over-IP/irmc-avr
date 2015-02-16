@@ -19,10 +19,11 @@ I use an [duemilanove](http://arduino.cc/en/pmwiki.php?n=Main/arduinoBoardDuemil
 The wiring is as follows: (see [pin mapping](http://arduino.cc/en/Hacking/PinMapping168))
 | Pin | Function |
 | :-- | :------- |
-| PORTD | Sounder |
-| PINC | TXLOOP |
-| PID6 | Speaker |
+| PNC | TXLOOP |
+| PD6 | Speaker |
 | PC5 (ADC7) analog Input 5 | Key (5V!) |
+| PD7 | Connect LED |
+|PC1 | Disconnect Switch|
 
 * Sounder: PORTD
 * (TXLOOP PINC)
