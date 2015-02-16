@@ -3,8 +3,7 @@ irmc-avr
 IRMC stands for Internet Relay Morse Code. 
 This is an implementation of a [MOIP](https://github.com/8cH9azbsFifZ/moip) client.
 
-# Build Firmware
-Under OSX:
+Build the firmware under OSX:
 port install avr-binutils avr-libc avr-gcc avrdude
 make burn
 
