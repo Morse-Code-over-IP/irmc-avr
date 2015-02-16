@@ -18,18 +18,13 @@ I use an [duemilanove](http://arduino.cc/en/pmwiki.php?n=Main/arduinoBoardDuemil
 
 The wiring is as follows: (see [pin mapping](http://arduino.cc/en/Hacking/PinMapping168))
 
-| Pin	| Function 	| 
-| :---- |:-------- 	|
-| PNC | TXLOOP |
-| PD6 | Speaker |
-| PC5 | (ADC7) analog Input 5 Key (5V!) |
-| PD7 | Connect LED |
-| PC1 | Disconnect Switch |
-
-* Sounder: PORTD
-* (TXLOOP PINC)
-* Use PD6 as speaker output
-* key is connected at PC5(ADC7)  (--> 5V!)
+| Pin	| Arduino Name 	| Function 	| 
+| :---- | :-----------	| :-------	|
+| PNC 	| 		| TXLOOP |
+| PD6 	| 		| Speaker |
+| PC5 	| analog Input 5| Key (5V!) |
+| PD7 	| 		| Connect LED |
+| PC1 	| analog Input 1| Disconnect Switch |
 
 # References
 
