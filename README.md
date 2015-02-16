@@ -18,6 +18,9 @@ I use an [duemilanove](http://arduino.cc/en/pmwiki.php?n=Main/arduinoBoardDuemil
 
 The wiring is as follows: (see [pin mapping](http://arduino.cc/en/Hacking/PinMapping168))
 
+| Architecture  | Name  	| License | Comment |
+| :------------ |:------------ 	| :-----  | :------ | 
+
 | Pin | Function |
 | :-- | :------- |
 | PNC | TXLOOP |
