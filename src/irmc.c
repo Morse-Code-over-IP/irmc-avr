@@ -12,6 +12,9 @@
 #ifdef ETHERNET
     #include "w5100.h"
 #endif
+#ifdef WIFI
+    // TBD
+#endif
 
 unsigned long tx_sequence = 0, rx_sequence;
 unsigned long _timer_reg;
@@ -42,20 +45,26 @@ fastclock()
 void
 identifyclient(struct dp *c, struct cp *n, struct node *s)
 {
+    // Basic structure for an identification packet
 	c->command = DAT;
-	c->length = 492;
+	c->length = SIZE_DP;
 	n->channel = s->ch;
-	snprintf(c->id, 128, MY_ID);
-	snprintf(c->status, 128, IRMC_VERSION);
+	snprintf(c->id, LEN_ID, MY_ID);
+	snprintf(c->status, LEN_STATUS, IRMC_VERSION);
 	c->n = 0;
-        c->a21 = 1;     /* These magic numbers was provided by Les Kerr */
-        c->a22 = 755;
-        c->a23 = 65535;
+    c->a21 = 1;     /* These magic numbers was provided by Les Kerr */
+    c->a22 = 755;
+    c->a23 = 65535;
 	tx_sequence++;
 	c->sequence = tx_sequence;
+    
+    // send the packet
 #ifdef ETHERNET
-	w5100_sendto((unsigned char *)n, 4, s->ipaddr, s->port); // FIXME
+	w5100_sendto((unsigned char *)n, 4, s->ipaddr, s->port); // FIXME - including magic numbers
 	w5100_sendto((unsigned char *)c, 496, s->ipaddr, s->port);
+#endif
+#ifdef WIFI
+    // TBD
 #endif
 }
 
@@ -63,7 +72,6 @@ void
 wait(unsigned int ms)
 {
 	unsigned int i;
-
 	for(i = 0; i < ms; i++)_delay_ms(1);
 }
 
@@ -90,7 +98,7 @@ sounder(struct dp *c)
 		}
         // No beep
 		if(c->code[i] < 0){
-			if((c->code[i] * -1) > 1000) c->code[i] = -1000;
+			if((c->code[i] * -1) > 1000) c->code[i] = -1000; // FIXME: magic numbers
 #ifdef BLINK
             PORTD &= ~(1 << PIN_LED_DATA); // blink
 #endif
@@ -107,17 +115,20 @@ txloop(struct dp *c, struct node *s)
 	unsigned long kp, kr;
 	unsigned long timeout = 0;
 
+    // Basic structure for a data packet
 	c->command = DAT;
-	c->length = 492;
-        c->a21 = 1;     /* These magic numbers were provided by Les Kerr */
-        c->a22 = 755;
-        c->a23 = 16777215;
-	snprintf(c->status, 128, "?"); // FIXME
-	snprintf(c->id, 128, MY_ID);
+	c->length = SIZE_DP;
+    c->a21 = 1;     /* These magic numbers were provided by Les Kerr */
+    c->a22 = 755;
+    c->a23 = 16777215;
+	snprintf(c->status, LEN_STATUS, "?");
+	snprintf(c->id, LEN_ID, MY_ID);
+    
+    // Begin transmitting
 	kp = fastclock();
 	kr = 0;
 	c->n++;
-	c->code[c->n - 1] = -2000;
+	c->code[c->n - 1] = -2000; // FIXME: magic numbers
 	for(;;){
 		while(PINC & (1 << PIN_KEY)) kr = fastclock();
 		c->n++;
@@ -138,6 +149,9 @@ txloop(struct dp *c, struct node *s)
                 {
 #ifdef ETHERNET
 					w5100_sendto((unsigned char *)c, 496, s->ipaddr, s->port); // FIXME
+#endif
+#ifdef WIFI
+                    //TBD
 #endif
                 }
 				c->n = 0;
@@ -166,7 +180,7 @@ main()
 	struct cp disconnectmsg = {DIS, 0};
 	struct dp data;
 	struct node node;
-	for(n = 0; n < 51; n++) data.code[n] = 0;
+    for(n = 0; n < LEN_CODE; n++) data.code[n] = 0;
 
 	DDRD |= (1 << PIN_LED_CONNECT);
 #ifdef BLINK
@@ -189,15 +203,21 @@ main()
 	w5100_init(); // FIXME
 	w5100_socket_open(Sn_MR_UDP, LOCAL_PORT, 0);
 #endif
+#ifdef WIFI
+    // TBD
+#endif
 	sei();
 	ADCSRA |= (1 << ADSC); /* start adc */
 	adccurr = _adc_reg;
 	setnode(&node);
 	for(;;){
 		if(keepalive_t <= 0){
-			if(adccurr != _adc_reg){
+			if(adccurr != _adc_reg){ // FIXME: how do we trigger the disconnect message?
 #ifdef ETHERNET
 				w5100_sendto((unsigned char *)&disconnectmsg, 4, node.ipaddr, node.port); // FIXME
+#endif
+#ifdef WIFI
+                // TBD
 #endif
 				adccurr = _adc_reg;
 				setnode(&node);
@@ -214,10 +234,13 @@ main()
 #ifdef ETHERNET
 		n = w5100_recvfrom(buf, MAXDATASIZE-1, (unsigned char *)&dummyip, &dummyport); // FIXME
 #endif
+#ifdef WIFI
+        // TBD
+#endif
 		if(n == 2) PORTD |= (1 << PIN_LED_CONNECT);
-		if(n == 496){
+		if(n == 496){ // FIXME: magic number
 			PORTD |= (1 << PIN_LED_CONNECT);
-			memcpy(&data, buf, 496);
+			memcpy(&data, buf, 496); // FIXME: magic number
 			if(data.n > 0 && rx_sequence != data.sequence){
 				rx_sequence = data.sequence;
 				sounder(&data);

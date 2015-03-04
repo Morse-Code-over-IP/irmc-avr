@@ -31,20 +31,23 @@ struct cp{
         unsigned short channel;
 };
 
+#define LEN_ID 128
+#define LEN_STATUS 128
+#define LEN_CODE 51
+#define SIZE_DP 492
 struct dp{
         unsigned short command;
         unsigned short length;
-        char id[128];
+        char id[LEN_ID];
         char a1[4];
         unsigned long sequence;
         unsigned long a21;
         unsigned long a22;
         unsigned long a23;
-        signed long code[51];
+        signed long code[LEN_CODE];
         unsigned long n;
-        char status[128];  /* This is called version in MorseKob */
+        char status[LEN_STATUS];  /* This is called version in MorseKob */
         char a4[8];
-
 };
 
 /* Definitions for the IP connection */
