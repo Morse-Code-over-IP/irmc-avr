@@ -35,11 +35,7 @@ The wiring is as follows: (see [pin mapping](http://arduino.cc/en/Hacking/PinMap
 
 
 # References
-
-# Original [post](http://fernski.blogspot.de/2013/05/sending-morsecode-via-atmega.html) by Fernan Bolando (VE4FEB)
-> 1. Only 12 presets are programmed, instead being able to connect to an arbitrary frequency/wire.
-> 3. Some clock jitter results in 4ms variation in timming was observed.
-> 4. I have it configured to interface to a separate sidetone generator for keying so the key input is expecting a 5V pulse.
+* Original [post](http://fernski.blogspot.de/2013/05/sending-morsecode-via-atmega.html) by Fernan Bolando (VE4FEB)
 
 Code Quality
 ============
