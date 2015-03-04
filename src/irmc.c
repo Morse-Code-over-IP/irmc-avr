@@ -111,8 +111,8 @@ txloop(struct dp *c, struct node *s)
         c->a21 = 1;     /* These magic numbers were provided by Les Kerr */
         c->a22 = 755;
         c->a23 = 16777215;
-	snprintf(c->status, 128, "?");
-	snprintf(c->id, 128, "%s", s->myid);
+	snprintf(c->status, 128, "?"); // FIXME
+	snprintf(c->id, 128, "%s", s->myid); // FIXME
 	kp = fastclock();
 	kr = 0;
 	c->n++;
@@ -198,7 +198,7 @@ main()
 		}
 		keepalive_t--;
 
-		if(PINC & (1 << PIN_KEY)){ // FIXME: remove
+		if(PINC & (1 << PIN_KEY)){ // FIXME: remove PINC
 			txloop(&data, &node);
 		}
 
