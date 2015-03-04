@@ -165,14 +165,13 @@ main()
 
 	DDRD |= (1 << PIN_LED_CONNECT);
 #ifdef BLINK
-    DDRD |= (1 << PIN_LED_DATA);
+    	DDRD |= (1 << PIN_LED_DATA);
 #endif
 	timer_init();
 	usart_init();
 	spi_init();
 	DDRD |= (1 << PIN_SPEAKER); 
 	DDRC &= ~(1 << PIN_KEY); 
-	DDRC &= ~(1 << PC1); /* shutdown pin if detected will send a disconnect */
 	
 	/* configure adc input for channel presets */
 	ADCSRA |= (1 << ADPS2) | (1 << ADPS1) | (1 << ADPS0);
@@ -188,11 +187,6 @@ main()
 	adccurr = _adc_reg;
 	setnode(&node);
 	for(;;){
-//		if(!(PINC & (1 << PC1))){
-//			w5100_sendto((unsigned char *)&disconnectmsg, 4, irmc_address, irmc_port);
-//			while(!(PINC & (1 << PC1))); /* Standby mode */
-//		}
-
 		if(keepalive_t <= 0){
 			if(adccurr != _adc_reg){
 				w5100_sendto((unsigned char *)&disconnectmsg, 4, node.ipaddr, node.port);
@@ -204,7 +198,7 @@ main()
 		}
 		keepalive_t--;
 
-		if(PINC & (1 << PIN_KEY)){
+		if(PINC & (1 << PIN_KEY)){ // FIXME: remove
 			txloop(&data, &node);
 		}
 

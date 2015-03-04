@@ -30,7 +30,7 @@ The wiring is as follows: (see [pin mapping](http://arduino.cc/en/Hacking/PinMap
 | PC5 	| analog Input 5| Key (5V!) |
 | PD7 	|               | Connect LED |
 | PD4   |               | Data LED |
-| PC1 	| analog Input 1| Disconnect Switch |
+
 
 # References
 
