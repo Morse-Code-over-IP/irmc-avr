@@ -1,4 +1,4 @@
-SRC = irmc.c w5100.c socket.c node.c
+SRC = irmc.c w5100.c socket.c node.c 
 HFILE = irmc.h w5100.h
 OBJ = ${SRC:.c=.out}
 CC = avr-gcc
