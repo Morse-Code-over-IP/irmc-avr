@@ -24,7 +24,6 @@ The wiring is as follows: (see [pin mapping](http://arduino.cc/en/Hacking/PinMap
 
 | Pin	| Arduino Name 	| Function 	| 
 | :---- | :-----------	| :-------	|
-| PNC 	| 		| TXLOOP |
 | PD6 	| 		| Speaker |
 | PC5 	| analog Input 5| Key (5V!) |
 | PD7 	| 		| Connect LED |
