@@ -24,6 +24,8 @@
 #define CON 0x0004
 #define ACK 0x0005
 
+#define IRMC_VERSION "irmc avr 0.01"
+
 struct cp{
         unsigned short command;
         unsigned short channel;

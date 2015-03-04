@@ -9,10 +9,7 @@ extern unsigned char _adc_reg;
 // FIXME
 void
 mtc(struct node *c)
-{
-	char id[] = MY_ID;
-	snprintf(c->myid, 128, "%s", id);
-    
+{    
 #ifdef SERVER_MRX
 	c->ipaddr[0] = 108; // FIXME: this is magic
 	c->ipaddr[1] = 22; // FIXME: this is magic

@@ -45,8 +45,8 @@ identifyclient(struct dp *c, struct cp *n, struct node *s)
 	c->command = DAT;
 	c->length = 492;
 	n->channel = s->ch;
-	snprintf(c->id, 128, "%s", s->myid);
-	snprintf(c->status, 128, "irmc avr 0.01");
+	snprintf(c->id, 128, MY_ID);
+	snprintf(c->status, 128, IRMC_VERSION);
 	c->n = 0;
         c->a21 = 1;     /* These magic numbers was provided by Les Kerr */
         c->a22 = 755;
@@ -113,7 +113,7 @@ txloop(struct dp *c, struct node *s)
         c->a22 = 755;
         c->a23 = 16777215;
 	snprintf(c->status, 128, "?"); // FIXME
-	snprintf(c->id, 128, "%s", s->myid); // FIXME
+	snprintf(c->id, 128, MY_ID);
 	kp = fastclock();
 	kr = 0;
 	c->n++;
