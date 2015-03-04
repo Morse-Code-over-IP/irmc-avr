@@ -35,8 +35,6 @@ The wiring is as follows: (see [pin mapping](http://arduino.cc/en/Hacking/PinMap
 
 ![Prototype](/doc/prototype_wiring.png?raw=true "Prototype")
 
-
-
 # References
 * Original [post](http://fernski.blogspot.de/2013/05/sending-morsecode-via-atmega.html) by Fernan Bolando (VE4FEB)
 
