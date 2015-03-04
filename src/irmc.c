@@ -1,18 +1,17 @@
+#include "config.h"
+
 #include <avr/io.h>
 #include <util/delay.h>
 
 #include <string.h>
 #include <stdio.h>
 #include <avr/interrupt.h>
-#include "w5100.h"
+
 #include "irmc.h"
 
-/* Definition of the hardware interface on the arduino */
-#define PIN_KEY PC5 	/* key is connected at PC5(ADC7) */
-#define PIN_SPEAKER PD6 /* Use PD6 as speaker output */
-#define PIN_LED_CONNECT PD7 /* Status LED ON=connected to irmc */
-#define BLINK
-#define PIN_LED_DATA PD4
+#ifdef ETHERNET
+    #include "w5100.h"
+#endif
 
 unsigned long tx_sequence = 0, rx_sequence;
 unsigned long _timer_reg;
@@ -54,8 +53,10 @@ identifyclient(struct dp *c, struct cp *n, struct node *s)
         c->a23 = 65535;
 	tx_sequence++;
 	c->sequence = tx_sequence;
-	w5100_sendto((unsigned char *)n, 4, s->ipaddr, s->port);
+#ifdef ETHERNET
+	w5100_sendto((unsigned char *)n, 4, s->ipaddr, s->port); // FIXME
 	w5100_sendto((unsigned char *)c, 496, s->ipaddr, s->port);
+#endif
 }
 
 void
@@ -134,7 +135,11 @@ txloop(struct dp *c, struct node *s)
 				tx_sequence++;
 				c->sequence = tx_sequence;
 				for(i = 0; i < 2; i++)
-					w5100_sendto((unsigned char *)c, 496, s->ipaddr, s->port);
+                {
+#ifdef ETHERNET
+					w5100_sendto((unsigned char *)c, 496, s->ipaddr, s->port); // FIXME
+#endif
+                }
 				c->n = 0;
 			}
 			if(timeout > TXTIME) return;
@@ -165,7 +170,7 @@ main()
 
 	DDRD |= (1 << PIN_LED_CONNECT);
 #ifdef BLINK
-    	DDRD |= (1 << PIN_LED_DATA);
+    DDRD |= (1 << PIN_LED_DATA);
 #endif
 	timer_init();
 	usart_init();
@@ -180,8 +185,10 @@ main()
 	ADCSRA |= (1 << ADEN); /* enable adc */
 	ADCSRA |= (1 << ADIE); /* enable adc interrupt */
 
-	w5100_init();
+#ifdef ETHERNET
+	w5100_init(); // FIXME
 	w5100_socket_open(Sn_MR_UDP, LOCAL_PORT, 0);
+#endif
 	sei();
 	ADCSRA |= (1 << ADSC); /* start adc */
 	adccurr = _adc_reg;
@@ -189,7 +196,9 @@ main()
 	for(;;){
 		if(keepalive_t <= 0){
 			if(adccurr != _adc_reg){
-				w5100_sendto((unsigned char *)&disconnectmsg, 4, node.ipaddr, node.port);
+#ifdef ETHERNET
+				w5100_sendto((unsigned char *)&disconnectmsg, 4, node.ipaddr, node.port); // FIXME
+#endif
 				adccurr = _adc_reg;
 				setnode(&node);
 			}
@@ -202,7 +211,9 @@ main()
 			txloop(&data, &node);
 		}
 
-		n = w5100_recvfrom(buf, MAXDATASIZE-1, (unsigned char *)&dummyip, &dummyport);
+#ifdef ETHERNET
+		n = w5100_recvfrom(buf, MAXDATASIZE-1, (unsigned char *)&dummyip, &dummyport); // FIXME
+#endif
 		if(n == 2) PORTD |= (1 << PIN_LED_CONNECT);
 		if(n == 496){
 			PORTD |= (1 << PIN_LED_CONNECT);
