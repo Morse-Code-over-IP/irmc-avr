@@ -5,7 +5,8 @@
 #define KEEPALIVE_CYCLE 80000
 #define MAXDATASIZE 498
 
-#define PITCH 650
+/* Definitions for tone generator */
+#define PITCH 650		// frequency of the tone
 #define CYCLE (1000000 / PITCH)
 #define HALFCYCLE CYCLE / 2
 
