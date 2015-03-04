@@ -7,7 +7,7 @@
 #include "w5100.h"
 #include "irmc.h"
 
-
+/* Definition of the hardware interface on the arduino */
 #define PIN_KEY PC5 	/* key is connected at PC5(ADC7) */
 #define PIN_SPEAKER PD6 /* Use PD6 as speaker output */
 #define PIN_LED_CONNECT PD7 /* Status LED ON=connected to irmc */
@@ -108,7 +108,7 @@ txloop(struct dp *c, struct node *s)
 
 	c->command = DAT;
 	c->length = 492;
-        c->a21 = 1;     /* These magic numbers was provided by Les Kerr */
+        c->a21 = 1;     /* These magic numbers were provided by Les Kerr */
         c->a22 = 755;
         c->a23 = 16777215;
 	snprintf(c->status, 128, "?");
