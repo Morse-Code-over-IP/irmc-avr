@@ -3,6 +3,7 @@
 
 #include "config.h"
 #include "irmc.h"
+#include "node.h"
 
 extern unsigned char _adc_reg;
 

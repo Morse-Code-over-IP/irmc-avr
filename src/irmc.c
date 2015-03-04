@@ -8,6 +8,7 @@
 #include <avr/interrupt.h>
 
 #include "irmc.h"
+#include "node.h"
 
 #ifdef ETHERNET
     #include "w5100.h"
