@@ -1,9 +1,3 @@
-//--------------------------------------------------------------------------
-// Wifi Modul ESP8266 Parameter als Station setzen
-//--------------------------------------------------------------------------
-// Basis war das Beispiel von Ray Wang  http://rayshobby.net/?p=9734
-//--------------------------------------------------------------------------
-
 #define WIFI_DEBUG
 
 #define WIFI_Serial mySerial
@@ -13,7 +7,7 @@
 //#define Debug_Serial mySerial
 
 #ifdef WIFI_DEBUG
-#include <SoftwareSerial.h>
+#include <SoftwareSerial.h> // FIXME: does not exist for gcc
 SoftwareSerial mySerial(2,3); // RX, TX
 #endif
 
