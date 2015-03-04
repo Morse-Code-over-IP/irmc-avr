@@ -31,6 +31,8 @@ The wiring is as follows: (see [pin mapping](http://arduino.cc/en/Hacking/PinMap
 | PD7 	|               | Connect LED |
 | PD4   |               | Data LED |
 
+![Prototype](/img/prototype.png?raw=true "Screen")
+
 
 # References
 
