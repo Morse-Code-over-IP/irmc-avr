@@ -3,6 +3,8 @@ irmc-avr
 IRMC stands for Internet Relay Morse Code. 
 This is an implementation of a [MOIP](https://github.com/8cH9azbsFifZ/moip) client.
 
+![Prototype](/img/prototype.png?raw=true "Prototype")
+
 #Building
 Build the firmware under OSX:
 port install avr-binutils avr-libc avr-gcc avrdude
@@ -31,7 +33,8 @@ The wiring is as follows: (see [pin mapping](http://arduino.cc/en/Hacking/PinMap
 | PD7 	|               | Connect LED |
 | PD4   |               | Data LED |
 
-![Prototype](/img/prototype.png?raw=true "Screen")
+![Prototype](/doc/prototype_wiring.png?raw=true "Prototype")
+
 
 
 # References
