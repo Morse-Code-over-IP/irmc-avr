@@ -8,6 +8,12 @@
 #include "irmc.h"
 
 
+#define PIN_KEY PC5 	/* key is connected at PC5(ADC7) */
+#define PIN_SPEAKER PD6 /* Use PD6 as speaker output */
+#define PIN_LED_CONNECT PD7 /* Status LED ON=connected to irmc */
+#define BLINK
+#define PIN_LED_DATA PD4
+
 unsigned long tx_sequence = 0, rx_sequence;
 unsigned long _timer_reg;
 unsigned char _adc_reg = 0;
@@ -70,13 +76,13 @@ sounder(struct dp *c)
         // Beep
 		if(c->code[i] > 0){
 #ifdef BLINK
-            PORTD |= (1 << PD4); // blink
+            PORTD |= (1 << PIN_LED_DATA); // blink
 #endif
 			cycles = c->code[i] * 1000 / CYCLE;
 			while(cycles > 0){
-				PORTD |= (1 << PD6);
+				PORTD |= (1 << PIN_SPEAKER);
 				_delay_us(HALFCYCLE);
-				PORTD &= ~(1 << PD6);
+				PORTD &= ~(1 << PIN_SPEAKER);
 				_delay_us(HALFCYCLE);
 				cycles--;
 			}
@@ -85,9 +91,9 @@ sounder(struct dp *c)
 		if(c->code[i] < 0){
 			if((c->code[i] * -1) > 1000) c->code[i] = -1000;
 #ifdef BLINK
-            PORTD &= ~(1 << PD4); // blink
+            PORTD &= ~(1 << PIN_LED_DATA); // blink
 #endif
-			PORTD &= ~(1 << PD6);
+			PORTD &= ~(1 << PIN_SPEAKER);
 			wait(-1 * c->code[i]);
 		}
 	}
@@ -112,11 +118,11 @@ txloop(struct dp *c, struct node *s)
 	c->n++;
 	c->code[c->n - 1] = -2000;
 	for(;;){
-		while(PINC & (1 << PC5)) kr = fastclock();
+		while(PINC & (1 << PIN_KEY)) kr = fastclock();
 		c->n++;
 		c->code[c->n - 1] = kr - kp;
 		for(;;){
-			if(PINC & (1 << PC5)){
+			if(PINC & (1 << PIN_KEY)){
 				kp = fastclock();
 				c->n++;
 				c->code[c->n - 1] = -1 * (kp - kr);
@@ -124,7 +130,7 @@ txloop(struct dp *c, struct node *s)
 			}
 			timeout = fastclock() - kr;
 			if((timeout > KEYUPTIMEOUT && c->n > 1) || (c->n > 50)){
-				PORTD |= (1 << PD7);
+				PORTD |= (1 << PIN_LED_CONNECT);
 				tx_sequence++;
 				c->sequence = tx_sequence;
 				for(i = 0; i < 2; i++)
@@ -157,15 +163,15 @@ main()
 	struct node node;
 	for(n = 0; n < 51; n++) data.code[n] = 0;
 
-	DDRD |= (1 << PD7); /* Status LED ON=connected to irmc */
+	DDRD |= (1 << PIN_LED_CONNECT);
 #ifdef BLINK
-    DDRD |= (1 << PD4);
+    DDRD |= (1 << PIN_LED_DATA);
 #endif
 	timer_init();
 	usart_init();
 	spi_init();
-	DDRD |= (1 << PD6); /* Use PD6 as speaker output */
-	DDRC &= ~(1 << PC5); /* key is connected at PC5(ADC7) */
+	DDRD |= (1 << PIN_SPEAKER); 
+	DDRC &= ~(1 << PIN_KEY); 
 	DDRC &= ~(1 << PC1); /* shutdown pin if detected will send a disconnect */
 	
 	/* configure adc input for channel presets */
@@ -198,14 +204,14 @@ main()
 		}
 		keepalive_t--;
 
-		if(PINC & (1 << PC5)){
+		if(PINC & (1 << PIN_KEY)){
 			txloop(&data, &node);
 		}
 
 		n = w5100_recvfrom(buf, MAXDATASIZE-1, (unsigned char *)&dummyip, &dummyport);
-		if(n == 2) PORTD |= (1 << PD7);
+		if(n == 2) PORTD |= (1 << PIN_LED_CONNECT);
 		if(n == 496){
-			PORTD |= (1 << PD7);
+			PORTD |= (1 << PIN_LED_CONNECT);
 			memcpy(&data, buf, 496);
 			if(data.n > 0 && rx_sequence != data.sequence){
 				rx_sequence = data.sequence;
@@ -216,7 +222,7 @@ main()
 		stat++;
 		if(stat == STATUSTIMER){
 			stat = 0;
-			PORTD &= ~(1 << PD7);
+			PORTD &= ~(1 << PIN_LED_CONNECT);
 		}
 	}
 	return 0;
