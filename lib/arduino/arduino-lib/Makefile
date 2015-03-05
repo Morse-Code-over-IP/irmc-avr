@@ -8,7 +8,7 @@ LIBNAME=lib$(BOARD).a
 #INCDIR=#~/include/$(BOARD)
 
 OBJECTS= pins_arduino.o wiring.o wiring_analog.o wiring_digital.o \
-		   wiring_pulse.o wiring_shift.o Print.o HardwareSerial.o  \
+		   wiring_pulse.o wiring_shift.o Print.o HardwareSerial.o SoftwareSerial.o \
 		   Tone.o WMath.o WString.o WInterrupts.o forward.o
 
 default: $(OBJECTS)
