@@ -14,6 +14,7 @@ SoftwareSerial mySerial(2,3); // RX, TX
 #define SSID  "ok"     // WIFI SSID
 #define PASS  "secret"     // WIFI Passwort
 
+//FIXME: put in config.h 
 #include "/Users/gerolf/nwpass.h"
 
 #define WIFI_ERROR_NONE 0
