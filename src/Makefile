@@ -1,9 +1,8 @@
-SRC = irmc.c w5100.c socket.c node.c esp8266.c
+SRC = irmc.c w5100.c socket.c node.c
 HFILE = irmc.h w5100.h
 OBJ = ${SRC:.c=.out}
 CC = avr-gcc
-INCLUDE = -I/opt/local/avr/include/avr/ -I../lib/arduino_gcc_tutorial/arduino-lib
-CFLAGS = -Wall -O -Wl,-Map,irmc.map -DF_CPU=16000000UL -mmcu=atmega328
+CFLAGS = -Wall -I/opt/local/avr/include/avr/ -O -Wl,-Map,irmc.map -DF_CPU=16000000UL -mmcu=atmega328
 PORT = /dev/tty.usbserial-A700dZIr  
 #PORT = /dev/tty.usbserial-A400Y62O
 LD = avr-objcopy
@@ -18,7 +17,7 @@ options:
 
 irmc.elf: ${SRC} ${HFILE}
 	@echo CC ${SRC} -o irmc.out
-	@${CC} ${INCLUDE} ${CFLAGS} ${SRC} -o $@
+	@${CC} ${CFLAGS} ${SRC} -o $@
 	avr-size $@
 
 irmc.hex: irmc.elf
