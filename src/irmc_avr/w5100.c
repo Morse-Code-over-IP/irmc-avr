@@ -1,5 +1,7 @@
 #include <avr/io.h>
 #include <util/delay.h>
+
+#include "pins.h"
 #include "w5100.h"
 
 unsigned char w5100_subnet[4]; /* needed for the ARP errata */

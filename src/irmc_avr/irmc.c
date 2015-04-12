@@ -9,6 +9,7 @@
 
 #include "irmc.h"
 #include "node.h"
+#include "pins.h"
 
 #ifdef ETHERNET
     #include "w5100.h"
@@ -16,6 +17,7 @@
 #ifdef WIFI
     // TBD
 #endif
+
 
 unsigned long tx_sequence = 0, rx_sequence;
 unsigned long _timer_reg;
