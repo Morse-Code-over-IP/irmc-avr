@@ -40,6 +40,6 @@ The wiring is as follows: (see [pin mapping](http://arduino.cc/en/Hacking/PinMap
 
 Code Quality
 ============
-This is experimental code.
+This is experimental code. The latest version working without too much tweaking is [v0.2](https://github.com/8cH9azbsFifZ/irmc-avr/archive/v0.2.zip)
 
 
