@@ -1,4 +1,4 @@
-#define WIFI_DEBUG
+//#define WIFI_DEBUG
 
 #define WIFI_Serial mySerial
 #define Debug_Serial Serial
